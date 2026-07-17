@@ -1,0 +1,141 @@
+:root {
+  --color-principal: #8f5bd7;
+  --color-secundario: #f2eaff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, var(--color-secundario), #ffffff);
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  width: 100%;
+  max-width: 430px;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 26px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+  margin-top: 0;
+  color: var(--color-principal);
+}
+
+p {
+  color: #555555;
+  line-height: 1.5;
+}
+
+.fecha-limite {
+  margin: 18px 0;
+  padding: 12px;
+  color: var(--color-principal);
+  background: var(--color-secundario);
+  border: 1px solid var(--color-principal);
+  border-radius: 14px;
+}
+
+label {
+  display: block;
+  margin-top: 16px;
+  text-align: left;
+  font-weight: bold;
+  color: #333333;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border: 1px solid #d7d7d7;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 90px;
+  resize: none;
+}
+
+.nota {
+  margin-top: 5px;
+  text-align: left;
+  font-size: 13px;
+  color: #777777;
+}
+
+.error {
+  display: none;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #c0392b;
+}
+
+button {
+  width: 100%;
+  margin-top: 22px;
+  padding: 14px;
+  border: none;
+  border-radius: 16px;
+  background: var(--color-principal);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.oculto {
+  display: none;
+}
+
+.campo-personas {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    max-height 0.3s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.campo-personas.visible {
+  max-height: 150px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.check {
+  width: 72px;
+  height: 72px;
+  margin: 20px auto;
+  border-radius: 50%;
+  background: var(--color-principal);
+  color: #ffffff;
+  font-size: 46px;
+  line-height: 72px;
+}
