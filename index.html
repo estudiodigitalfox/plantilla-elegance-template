@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Confirmar asistencia</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animaciones.css">
+
+  <script src="config.js"></script>
+  <script src="iconos.js"></script>
+  <script src="animaciones.js"></script>
+</head>
+
+<body>
+  <main class="card">
+
+    <!-- FORMULARIO -->
+    <section id="contenedorFormulario">
+
+      <h1>💌 Confirma tu asistencia</h1>
+
+      <p>
+        Nos llenará de alegría compartir este momento contigo.
+      </p>
+
+      <div class="fecha-limite">
+        📅 Fecha límite para confirmar:<br>
+        <strong id="fechaLimiteTexto"></strong>
+      </div>
+
+      <form id="formularioConfirmacion" novalidate>
+
+        <label for="nombreCompleto">
+          Nombre completo
+        </label>
+
+        <input
+          id="nombreCompleto"
+          name="nombre"
+          type="text"
+          autocomplete="name"
+        >
+
+        <div class="nota">
+          Por favor escribe tu nombre completo para poder identificar tu confirmación.
+        </div>
+
+        <div id="errorNombre" class="error">
+          Por favor escribe tu nombre completo para poder identificar tu confirmación.
+        </div>
+
+        <label for="asistencia">
+          ¿Podrás acompañarnos?
+        </label>
+
+        <select id="asistencia" name="asiste">
+          <option value="">Selecciona una opción</option>
+          <option value="Sí">Sí</option>
+          <option value="No">No</option>
+        </select>
+
+        <div id="errorAsistencia" class="error">
+          Por favor indica si podrás acompañarnos.
+        </div>
+
+        <div id="contenedorPersonas" class="campo-personas">
+
+          <label for="numeroPersonas">
+            ¿Cuántas personas asistirán?
+          </label>
+
+          <input
+            id="numeroPersonas"
+            name="personas"
+            type="number"
+            min="1"
+            inputmode="numeric"
+          >
+
+          <div id="errorPersonas" class="error">
+            Indícanos cuántas personas asistirán para preparar tu lugar.
+          </div>
+
+        </div>
+
+        <label for="mensaje">
+          ¿Deseas dejar un mensaje para los anfitriones?
+        </label>
+
+        <textarea
+          id="mensaje"
+          name="mensaje"
+          placeholder="Escribe tu mensaje aquí (opcional)"
+        ></textarea>
+
+        <button id="botonConfirmar" type="submit">
+          Confirmar
+        </button>
+
+      </form>
+    </section>
+
+    <!-- MENSAJE DE ÉXITO -->
+    <section id="contenedorGracias" class="oculto">
+
+      <div class="check">✓</div>
+
+      <h1>¡Gracias por confirmar!</h1>
+
+      <p>
+        Tu respuesta ha sido enviada correctamente.
+      </p>
+
+      <p>
+        Será un verdadero gusto compartir este día tan especial contigo.
+      </p>
+
+      <button id="botonCerrar" type="button">
+        Cerrar
+      </button>
+
+    </section>
+
+    <!-- CONFIRMACIONES CERRADAS -->
+    <section id="contenedorCerrado" class="oculto">
+
+      <h1>💌 Confirmaciones cerradas</h1>
+
+      <p>
+        Las confirmaciones para este evento han finalizado.
+      </p>
+
+      <p>
+        Gracias por tu interés.
+      </p>
+
+    </section>
+
+    <!-- ERROR DE ENVÍO -->
+    <section id="contenedorError" class="oculto">
+
+      <h1>No pudimos enviar tu confirmación</h1>
+
+      <p>
+        Verifica tu conexión a Internet e inténtalo nuevamente.
+      </p>
+
+      <button id="botonReintentar" type="button">
+        Intentar nuevamente
+      </button>
+
+    </section>
+
+  </main>
+
+  <script>
+    // ====================================
+    // APLICAR CONFIGURACIÓN DEL EVENTO
+    // ====================================
+
+    document.documentElement.style.setProperty(
+      "--color-principal",
+      CONFIG.colorPrincipal
+    );
+
+    document.documentElement.style.setProperty(
+      "--color-secundario",
+      CONFIG.colorSecundario
+    );
+
+    document.getElementById("fechaLimiteTexto").textContent =
+      CONFIG.fechaLimiteTexto;
+
+
+    // ====================================
+    // ELEMENTOS DE LA PÁGINA
+    // ====================================
+
+    const contenedorFormulario =
+      document.getElementById("contenedorFormulario");
+
+    const contenedorGracias =
+      document.getElementById("contenedorGracias");
+
+    const contenedorCerrado =
+      document.getElementById("contenedorCerrado");
+
+    const contenedorError =
+      document.getElementById("contenedorError");
+
+    const formulario =
+      document.getElementById("formularioConfirmacion");
+
+    const asistencia =
+      document.getElementById("asistencia");
+
+    const contenedorPersonas =
+      document.getElementById("contenedorPersonas");
+
+    const botonConfirmar =
+      document.getElementById("botonConfirmar");
+
+    const botonCerrar =
+      document.getElementById("botonCerrar");
+
+    const botonReintentar =
+      document.getElementById("botonReintentar");
+
+
+    // ====================================
+    // FECHA LÍMITE
+    // ====================================
+
+    const fechaLimite = new Date(CONFIG.fechaLimiteSistema);
+    const fechaActual = new Date();
+
+    if (fechaActual > fechaLimite) {
+      contenedorFormulario.classList.add("oculto");
+      contenedorCerrado.classList.remove("oculto");
+    }
+
+
+    // ====================================
+    // MOSTRAR NÚMERO DE PERSONAS
+    // ====================================
+
+    asistencia.addEventListener("change", () => {
+      const numeroPersonas =
+        document.getElementById("numeroPersonas");
+
+      if (asistencia.value === "Sí") {
+        contenedorPersonas.classList.add("visible");
+      } else {
+        contenedorPersonas.classList.remove("visible");
+        numeroPersonas.value = "";
+      }
+
+      document.getElementById("errorAsistencia").style.display = "none";
+    });
+
+
+    // ====================================
+    // VALIDACIÓN
+    // ====================================
+
+    function validarFormulario() {
+      const nombre =
+        document.getElementById("nombreCompleto").value.trim();
+
+      const personas =
+        document.getElementById("numeroPersonas").value;
+
+      const errorNombre =
+        document.getElementById("errorNombre");
+
+      const errorAsistencia =
+        document.getElementById("errorAsistencia");
+
+      const errorPersonas =
+        document.getElementById("errorPersonas");
+
+      errorNombre.style.display = "none";
+      errorAsistencia.style.display = "none";
+      errorPersonas.style.display = "none";
+
+      if (nombre === "") {
+        errorNombre.style.display = "block";
+        return false;
+      }
+
+      if (asistencia.value === "") {
+        errorAsistencia.style.display = "block";
+        return false;
+      }
+
+      if (asistencia.value === "Sí" && personas === "") {
+        errorPersonas.style.display = "block";
+        return false;
+      }
+
+      return true;
+    }
+
+
+    // ====================================
+    // ENVIAR CONFIRMACIÓN
+    // ====================================
+
+    formulario.addEventListener("submit", async (evento) => {
+      evento.preventDefault();
+
+      if (!validarFormulario()) {
+        return;
+      }
+
+      if (!CONFIG.scriptURL) {
+        alert(
+          "Todavía falta agregar la URL de Apps Script en config.js."
+        );
+        return;
+      }
+
+      botonConfirmar.disabled = true;
+      botonConfirmar.textContent = "Guardando confirmación...";
+
+      const datos = {
+        evento: CONFIG.nombreEvento,
+
+        nombre:
+          document.getElementById("nombreCompleto").value.trim(),
+
+        asiste: asistencia.value,
+
+        adultos:
+          asistencia.value === "Sí"
+            ? document.getElementById("numeroPersonas").value
+            : "0",
+
+        ninos: "0",
+
+        mensaje:
+          document.getElementById("mensaje").value.trim()
+      };
+
+      try {
+        await fetch(CONFIG.scriptURL, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify(datos)
+        });
+
+        contenedorFormulario.classList.add("oculto");
+        contenedorGracias.classList.remove("oculto");
+
+        lanzarAnimacion();
+
+      } catch (error) {
+        console.error(error);
+
+        contenedorFormulario.classList.add("oculto");
+        contenedorError.classList.remove("oculto");
+
+      } finally {
+        botonConfirmar.disabled = false;
+        botonConfirmar.textContent = "Confirmar";
+      }
+    });
+
+
+    // ====================================
+    // BOTONES FINALES
+    // ====================================
+
+    botonCerrar.addEventListener("click", () => {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.close();
+      }
+    });
+
+    botonReintentar.addEventListener("click", () => {
+      contenedorError.classList.add("oculto");
+      contenedorFormulario.classList.remove("oculto");
+    });
+  </script>
+</body>
+</html>
