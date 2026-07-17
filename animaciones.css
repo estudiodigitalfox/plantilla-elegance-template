@@ -1,0 +1,145 @@
+.animacion-elemento {
+  position: fixed;
+  top: -70px;
+  width: 34px;
+  height: 34px;
+  color: var(--color-principal);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+}
+
+.animacion-elemento svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Confeti, flores, corazones, estrellas, globos y elementos similares */
+
+.animacion-caer {
+  animation: caerElemento 4s linear forwards;
+}
+
+@keyframes caerElemento {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(115vh) rotate(420deg);
+    opacity: 0;
+  }
+}
+
+/* Mariposas */
+
+.animacion-mariposa {
+  animation: volarMariposa 4.5s ease-in-out forwards;
+}
+
+@keyframes volarMariposa {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(-8deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  25% {
+    transform: translateY(25vh) translateX(35px) rotate(10deg);
+  }
+
+  50% {
+    transform: translateY(50vh) translateX(-25px) rotate(-8deg);
+  }
+
+  75% {
+    transform: translateY(75vh) translateX(40px) rotate(12deg);
+  }
+
+  100% {
+    transform: translateY(115vh) translateX(-20px) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+/* Globos */
+
+.animacion-globo {
+  top: auto;
+  bottom: -80px;
+  animation: subirGlobo 5s ease-in forwards;
+}
+
+@keyframes subirGlobo {
+  0% {
+    transform: translateY(0) translateX(0) rotate(-4deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(-55vh) translateX(25px) rotate(5deg);
+  }
+
+  100% {
+    transform: translateY(-120vh) translateX(-15px) rotate(-5deg);
+    opacity: 0;
+  }
+}
+
+/* Palomas */
+
+.animacion-paloma {
+  top: 15%;
+  left: -80px;
+  animation: volarPaloma 5s ease-in-out forwards;
+}
+
+@keyframes volarPaloma {
+  0% {
+    transform: translateX(0) translateY(20px) scale(0.8);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateX(55vw) translateY(-30px) scale(1);
+  }
+
+  100% {
+    transform: translateX(115vw) translateY(15px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* Variación de tamaños */
+
+.animacion-pequena {
+  width: 24px;
+  height: 24px;
+}
+
+.animacion-mediana {
+  width: 34px;
+  height: 34px;
+}
+
+.animacion-grande {
+  width: 45px;
+  height: 45px;
+}
